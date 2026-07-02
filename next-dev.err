@@ -1,0 +1,146 @@
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}
+ ⨯ Error: Event handlers cannot be passed to Client Component props.
+  <textarea name=... value=... onChange={function onChange} rows=... required=... placeholder=... className=...>
+                                        ^^^^^^^^^^^^^^^^^^^
+If you need interactivity, consider converting part of this to a Client Component.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3630661349'
+}

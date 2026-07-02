@@ -1,0 +1,39 @@
+
+> career-copilot-v2@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.147:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1630ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 590ms (222 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.9s (983 modules)
+ GET / 200 in 3456ms
+ GET / 200 in 101ms
+ GET / 200 in 44ms
+ GET / 200 in 136ms
+ ○ Compiling /analyze ...
+ ✓ Compiled /analyze in 1193ms (988 modules)
+ GET /analyze 200 in 2350ms
+ GET / 200 in 114ms
+ GET /analyze 200 in 802ms
+ GET /analyze 200 in 703ms
+ GET /analyze 200 in 612ms
+ GET /analyze 200 in 693ms
+ GET / 200 in 254ms
+ GET /analyze 200 in 803ms
+ GET / 200 in 39ms
+ ✓ Compiled /dashboard in 347ms (979 modules)
+ GET /dashboard 200 in 537ms
+ GET /analyze 500 in 364ms
+ GET /analyze 500 in 340ms
+ ✓ Compiled /history in 308ms (982 modules)
+ GET /history 200 in 823ms
+ ✓ Compiled /api/analyze in 213ms (990 modules)
+ GET /api/analyze 405 in 329ms
+ POST /api/analyze 501 in 11ms

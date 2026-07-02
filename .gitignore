@@ -1,0 +1,11 @@
+# # 用途：避免把本地密钥、依赖和临时输出提交进代码库。
+.env
+node_modules/
+npm-debug.log*
+.next/
+out/
+*.tsbuildinfo
+server.log
+server.err
+ui-check.png
+.edge-test/
