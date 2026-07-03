@@ -1,7 +1,9 @@
 import { zodTextFormat } from "openai/helpers/zod";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { getCurrentAppUser } from "@/lib/current-user";
 import { openai } from "@/lib/openai";
+import { prisma } from "@/lib/prisma";
 import { analysisRequestSchema, analysisResultSchema } from "@/lib/validators";
 
 const SYSTEM_PROMPT = `You are an expert resume analyst helping a job seeker compare a resume with a job description.
@@ -38,6 +40,31 @@ export async function POST(request: Request) {
     }
 
     const result = analysisResultSchema.parse(response.output_parsed);
+
+    try {
+      const user = await getCurrentAppUser();
+
+      await prisma.resumeAnalysis.create({
+        data: {
+          userId: user.id,
+          resumeText,
+          jobDescription,
+          matchScore: result.matchScore,
+          strengths: result.strengths,
+          missingKeywords: result.missingKeywords,
+          skillGaps: result.skillGaps,
+          bulletSuggestions: result.bulletSuggestions,
+          actionPlan: result.actionPlan,
+        },
+      });
+    } catch (databaseError) {
+      console.error("Saving resume analysis failed:", databaseError);
+      return NextResponse.json(
+        { error: "The analysis was completed, but it could not be saved. Please check the database connection and try again." },
+        { status: 503 },
+      );
+    }
+
     return NextResponse.json(result);
   } catch (error) {
     if (error instanceof ZodError) {
