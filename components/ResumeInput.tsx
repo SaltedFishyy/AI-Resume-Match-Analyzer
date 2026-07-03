@@ -1,3 +1,5 @@
+"use client";
+
 type ResumeInputProps = { value?: string; onChange?: (value: string) => void };
 
 export function ResumeInput({ value, onChange }: ResumeInputProps) {

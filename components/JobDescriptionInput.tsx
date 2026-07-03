@@ -1,3 +1,5 @@
+"use client";
+
 type JobDescriptionInputProps = { value?: string; onChange?: (value: string) => void };
 
 export function JobDescriptionInput({ value, onChange }: JobDescriptionInputProps) {
