@@ -27,7 +27,16 @@ export function AnalyzeForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText, jobDescription }),
       });
-      const data = (await response.json()) as AnalyzeApiResponse;
+      const responseText = await response.text();
+      let data: AnalyzeApiResponse;
+
+      try {
+        data = JSON.parse(responseText) as AnalyzeApiResponse;
+      } catch {
+        throw new Error(
+          "Server returned a non JSON response. Please check the terminal for the real API error.",
+        );
+      }
 
       if (!response.ok) {
         throw new Error("error" in data ? data.error : "Analysis failed. Please try again.");

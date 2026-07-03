@@ -31,6 +31,12 @@ export function AnalysisResult({ result }: { result: AnalysisResultData }) {
     <section className="mt-10 space-y-6" aria-live="polite">
       <h2 className="text-2xl font-bold">Your analysis</h2>
       <ScoreCard score={result.matchScore} />
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <RubricScore label="Skills match" score={result.skillsMatchScore} maximum={40} />
+        <RubricScore label="Experience" score={result.experienceRelevanceScore} maximum={25} />
+        <RubricScore label="Projects" score={result.projectRelevanceScore} maximum={20} />
+        <RubricScore label="Keywords" score={result.keywordCoverageScore} maximum={15} />
+      </div>
       <div className="grid gap-6 md:grid-cols-2">
         <ResultList title="Strengths" items={result.strengths} />
         <ResultList title="Missing keywords" items={result.missingKeywords} />
@@ -39,5 +45,14 @@ export function AnalysisResult({ result }: { result: AnalysisResultData }) {
       </div>
       <ResultList title="Action plan" items={result.actionPlan} />
     </section>
+  );
+}
+
+function RubricScore({ label, score, maximum }: { label: string; score: number; maximum: number }) {
+  return (
+    <div className="rounded-lg border bg-white p-4">
+      <p className="text-sm text-muted-foreground">{label}</p>
+      <p className="mt-1 text-xl font-semibold">{score} / {maximum}</p>
+    </div>
   );
 }
