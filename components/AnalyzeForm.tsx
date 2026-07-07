@@ -53,22 +53,42 @@ export function AnalyzeForm() {
 
   return (
     <>
-      <form className="mt-8" onSubmit={handleSubmit}>
+      <form className="mt-10" onSubmit={handleSubmit}>
         <div className="grid gap-6 lg:grid-cols-2">
-          <label className="space-y-2">
-            <span className="font-medium">Resume</span>
+          <section className="rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
+            <label htmlFor="resumeText" className="text-lg font-semibold">Resume</label>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              Paste the resume text you plan to use for this application.
+            </p>
             <ResumeInput value={resumeText} onChange={setResumeText} />
-          </label>
-          <label className="space-y-2">
-            <span className="font-medium">Job description</span>
+          </section>
+
+          <section className="rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
+            <label htmlFor="jobDescription" className="text-lg font-semibold">Job description</label>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+              Paste the complete role description for a job-specific comparison.
+            </p>
             <JobDescriptionInput value={jobDescription} onChange={setJobDescription} />
-          </label>
+          </section>
         </div>
-        {error && <p role="alert" className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-700">{error}</p>}
-        <button type="submit" disabled={isLoading} className="mt-6 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50">
-          {isLoading ? "Analyzing…" : "Analyze resume"}
-        </button>
+
+        {error && (
+          <p role="alert" className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+            {error}
+          </p>
+        )}
+
+        <div className="mt-6 flex justify-end">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="inline-flex min-w-44 items-center justify-center rounded-xl bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isLoading ? "Analyzing..." : "Analyze resume"}
+          </button>
+        </div>
       </form>
+
       {result && <AnalysisResult result={result} />}
     </>
   );

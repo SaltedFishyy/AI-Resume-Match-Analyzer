@@ -9,6 +9,5 @@ server.log
 server.err
 ui-check.png
 .edge-test/
-
 next-dev.log
 next-dev.err

@@ -16,7 +16,7 @@ type RubricScoreProps = {
 
 function ResultList({ title, description, items }: ResultListProps) {
   return (
-    <section className="rounded-xl border bg-white p-6 shadow-sm">
+    <section className="rounded-2xl border bg-white p-6 shadow-sm">
       <div className="border-b pb-4">
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="mt-1 text-sm leading-5 text-muted-foreground">{description}</p>
@@ -25,7 +25,7 @@ function ResultList({ title, description, items }: ResultListProps) {
       {items.length > 0 ? (
         <ul className="mt-5 space-y-4 text-sm leading-6 text-foreground/80">
           {items.map((item, index) => (
-            <li key={`${title}-${index}`} className="flex gap-3">
+            <li key={`${title}-${index}`} className="flex gap-3 rounded-lg bg-background px-3 py-2.5">
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
               <span>{item}</span>
             </li>
@@ -42,7 +42,7 @@ function RubricScore({ label, description, score, maximum }: RubricScoreProps) {
   const percentage = Math.round((score / maximum) * 100);
 
   return (
-    <article className="rounded-xl border bg-white p-5 shadow-sm">
+    <article className="rounded-2xl border bg-white p-5 shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-semibold">{label}</h3>
         <span className="shrink-0 rounded-full bg-blue-50 px-2.5 py-1 text-sm font-semibold text-blue-700">
@@ -59,8 +59,8 @@ function RubricScore({ label, description, score, maximum }: RubricScoreProps) {
 
 export function AnalysisResult({ result }: { result: AnalysisResultData }) {
   return (
-    <section className="mt-12 space-y-8" aria-live="polite">
-      <header>
+    <section className="mt-16 space-y-10 border-t pt-12" aria-live="polite">
+      <header className="max-w-3xl">
         <p className="text-sm font-medium uppercase tracking-wide text-primary">Resume insights</p>
         <h2 className="mt-2 text-3xl font-bold tracking-tight">Your analysis</h2>
         <p className="mt-2 text-muted-foreground">See where your resume aligns and what to improve before applying.</p>
@@ -87,14 +87,14 @@ export function AnalysisResult({ result }: { result: AnalysisResultData }) {
           <p className="mt-1 text-sm text-muted-foreground">Use these findings to make focused improvements to your application.</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          <ResultList title="Strengths" description="Relevant qualifications already working in your favor." items={result.strengths} />
-          <ResultList title="Missing keywords" description="Important terms from the job description not clearly represented." items={result.missingKeywords} />
-          <ResultList title="Skill gaps" description="Capabilities the role requests that need stronger evidence." items={result.skillGaps} />
-          <ResultList title="Resume bullet suggestions" description="Ways to make your existing experience more specific and relevant." items={result.bulletSuggestions} />
+          <ResultList title="Strengths" description="What already matches the job." items={result.strengths} />
+          <ResultList title="Missing keywords" description="Important job description terms that are missing or weak in your resume." items={result.missingKeywords} />
+          <ResultList title="Skill gaps" description="Skills or experience the role expects but your resume does not clearly prove." items={result.skillGaps} />
+          <ResultList title="Resume bullet suggestions" description="Safer rewrites based only on your existing experience." items={result.bulletSuggestions} />
         </div>
       </section>
 
-      <ResultList title="Action plan" description="The highest-priority steps to strengthen this application." items={result.actionPlan} />
+      <ResultList title="Action plan" description="What to improve first." items={result.actionPlan} />
     </section>
   );
 }

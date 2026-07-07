@@ -1,0 +1,46 @@
+
+> career-copilot-v2@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.254.147:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1575ms
+ ✓ Compiled /middleware in 190ms (222 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 799ms (911 modules)
+ GET / 404 in 1094ms
+ ✓ Compiled /analyze in 402ms (989 modules)
+ GET /analyze 200 in 615ms
+ ✓ Compiled /history in 375ms (1016 modules)
+ GET /history 200 in 2056ms
+ GET / 404 in 109ms
+ GET /analyze 200 in 109ms
+ GET /history 200 in 761ms
+ ✓ Compiled in 2.8s (1238 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 738ms (1018 modules)
+ GET / 200 in 1249ms
+ GET /analyze 200 in 102ms
+ GET /history 200 in 789ms
+ GET / 200 in 122ms
+ ✓ Compiled in 1040ms (991 modules)
+ GET / 200 in 483ms
+ ✓ Compiled in 154ms (342 modules)
+ ✓ Compiled in 173ms (1191 modules)
+ ✓ Compiled in 78ms (342 modules)
+ ✓ Compiled in 136ms (1191 modules)
+ ✓ Compiled in 72ms (342 modules)
+ ✓ Compiled in 78ms (342 modules)
+ ✓ Compiled in 71ms (342 modules)
+ ✓ Compiled in 99ms (342 modules)
+ ✓ Compiled in 69ms (342 modules)
+ ✓ Compiled in 79ms (342 modules)
+ ✓ Compiled in 107ms (342 modules)
+ ✓ Compiled in 94ms (342 modules)
+ ○ Compiling /analyze ...
+ ✓ Compiled /analyze in 1604ms (989 modules)
+ GET /analyze 200 in 2291ms

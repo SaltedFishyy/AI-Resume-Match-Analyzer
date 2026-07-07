@@ -21,10 +21,10 @@ export function ScoreCard({ score }: ScoreCardProps) {
         </div>
 
         <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-primary">Overall match</p>
+          <p className="text-sm font-medium uppercase tracking-wide text-primary">Match Score</p>
           <h3 className="mt-2 text-2xl font-bold">{matchLabel}</h3>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
-            This score is based on your skills, relevant experience, projects, and keyword coverage for this role.
+            Based on skills, experience, projects, and keyword coverage.
           </p>
         </div>
       </div>

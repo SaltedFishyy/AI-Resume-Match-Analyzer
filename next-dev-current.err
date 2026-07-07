@@ -1,0 +1,1 @@
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\erika\OneDrive\Desktop\AI resume\.next\cache\webpack\server-development\9.pack.gz_' -> 'C:\Users\erika\OneDrive\Desktop\AI resume\.next\cache\webpack\server-development\9.pack.gz'
