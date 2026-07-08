@@ -4,8 +4,8 @@ import { isClerkConfigured } from "@/lib/auth-config";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen">
-      <header className="border-b bg-white">
+    <div className="min-h-screen bg-transparent">
+      <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/dashboard" className="font-semibold">Career Copilot</Link>
           <nav className="flex items-center gap-6 text-sm">

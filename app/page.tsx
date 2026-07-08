@@ -23,7 +23,7 @@ export default function HomePage() {
         <Link href="/" className="font-semibold tracking-tight">AI Resume Match Analyzer</Link>
         {isClerkConfigured ? (
           <>
-            <SignedOut><SignInButton mode="modal"><button className="rounded-lg border bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-muted">Sign in</button></SignInButton></SignedOut>
+            <SignedOut><SignInButton mode="modal"><button className="rounded-lg border bg-white/85 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur transition hover:bg-white">Sign in</button></SignInButton></SignedOut>
             <SignedIn><UserButton /></SignedIn>
           </>
         ) : (
@@ -31,7 +31,7 @@ export default function HomePage() {
         )}
       </nav>
 
-      <section className="border-y bg-white">
+      <section className="border-y border-slate-200/80 bg-white/55 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6 py-20 text-center lg:py-28">
           <div className="mx-auto max-w-4xl">
             <p className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">Resume intelligence for job seekers</p>
@@ -39,7 +39,7 @@ export default function HomePage() {
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Compare your resume against a job description and get a clear match score, missing keywords, skill gaps, and resume improvement suggestions.</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/analyze" className="rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground shadow-sm transition hover:opacity-90">Analyze my resume</Link>
-              <Link href="/history" className="rounded-lg border bg-white px-6 py-3 text-center font-medium shadow-sm transition hover:bg-muted">View analysis history</Link>
+              <Link href="/history" className="rounded-lg border bg-white/85 px-6 py-3 text-center font-medium shadow-sm transition hover:bg-white">View analysis history</Link>
             </div>
           </div>
         </div>
@@ -48,15 +48,15 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-6 py-20">
         <div className="max-w-2xl"><p className="text-sm font-medium uppercase tracking-wide text-primary">How it works</p><h2 className="mt-2 text-3xl font-bold tracking-tight">A focused analysis in three steps</h2><p className="mt-3 text-muted-foreground">No complicated setup—just the two documents that matter for the application.</p></div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {steps.map((step, index) => <article key={step.title} className="rounded-xl border bg-white p-6 shadow-sm"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">{index + 1}</span><h3 className="mt-5 text-lg font-semibold">{step.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{step.description}</p></article>)}
+          {steps.map((step, index) => <article key={step.title} className="rounded-xl border border-slate-200/80 bg-white/85 p-6 shadow-sm backdrop-blur"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">{index + 1}</span><h3 className="mt-5 text-lg font-semibold">{step.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{step.description}</p></article>)}
         </div>
       </section>
 
-      <section className="border-y bg-white">
+      <section className="border-y border-slate-200/80 bg-white/55 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="max-w-2xl"><p className="text-sm font-medium uppercase tracking-wide text-primary">What you get</p><h2 className="mt-2 text-3xl font-bold tracking-tight">Practical insight for every application</h2><p className="mt-3 text-muted-foreground">Each result is designed to help you make clear, evidence-based resume improvements.</p></div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => <article key={feature.title} className="rounded-xl border bg-background p-6"><h3 className="font-semibold">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{feature.description}</p></article>)}
+            {features.map((feature) => <article key={feature.title} className="rounded-xl border border-slate-200/80 bg-white/75 p-6 shadow-sm backdrop-blur"><h3 className="font-semibold">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{feature.description}</p></article>)}
           </div>
         </div>
       </section>

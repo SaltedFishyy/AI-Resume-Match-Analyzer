@@ -65,3 +65,14 @@
  ✓ Compiled /history/[id] in 217ms (1008 modules)
  GET /history/cmrbaze030005u7rw0fmaifza 200 in 1682ms
  GET /history/not-a-real-analysis-id 404 in 472ms
+ ✓ Compiled in 360ms (993 modules)
+ ✓ Compiled in 85ms (352 modules)
+ ✓ Compiled in 92ms (352 modules)
+ ✓ Compiled in 292ms (993 modules)
+ GET / 200 in 183ms
+ ✓ Compiled /analyze in 153ms (653 modules)
+ GET /analyze 200 in 354ms
+ ✓ Compiled /history in 148ms (679 modules)
+ GET /history 200 in 2421ms
+ ✓ Compiled /dashboard in 257ms (1019 modules)
+ GET /dashboard 200 in 360ms

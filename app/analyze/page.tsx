@@ -4,11 +4,8 @@ import { AnalyzeForm } from "@/components/AnalyzeForm";
 export default function AnalyzePage() {
   return (
     <AppShell>
-      <div className="relative -mx-6 -my-10 min-h-screen overflow-hidden bg-slate-50 px-6 py-12 sm:py-16">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(99,102,241,0.14),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(59,130,246,0.12),transparent_28%),radial-gradient(circle_at_50%_80%,rgba(139,92,246,0.08),transparent_32%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.12)_1px,transparent_1px)] [background-size:32px_32px]" />
-
-        <div className="relative mx-auto max-w-6xl">
+      <div className="-mx-6 -my-10 min-h-screen px-6 py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl">
           <header className="max-w-4xl">
             <div className="flex flex-wrap gap-2">
               {["Rubric based", "Keyword aware", "Saved to history"].map((chip) => (
