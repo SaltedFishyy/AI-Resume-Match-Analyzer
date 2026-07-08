@@ -1,66 +1,156 @@
-# AI 模拟面试教练
+# AI Resume Match Analyzer
 
-这是一个 AI 驱动的模拟面试网站。用户可以粘贴或上传 `.txt` 简历，选择目标岗位，生成面试题，输入回答，并获得评分、亮点、改进建议和最终总结。
+AI Resume Match Analyzer is a full stack web app that compares a resume against a job description and returns a rubric based match score, missing keywords, skill gaps, resume bullet suggestions, and an action plan.
 
-## 当前功能
+Live demo: https://test-ai-resume.vercel.app
 
-- 粘贴简历文本或上传 `.txt` 简历
-- 自动解析技能、项目、经历和教育信息
-- 选择目标岗位：后端开发、软件工程师、数据方向
-- 通过后端调用 OpenAI API 生成 5 道面试题
-- 提交回答后调用 OpenAI API 获取评分和反馈
-- 后端不可用时自动回退到本地模拟题库和本地评分
-- 查看最终报告和回答历史
+## Overview
 
-## 本地运行
+This project is designed for job seekers who want practical, job specific resume feedback instead of generic AI advice. Users can paste a resume and a target job description, run an AI assisted analysis, save the result, and revisit previous analyses from the history page.
 
-1. 安装依赖：
+The app uses a fixed scoring rubric so the match score is more consistent and easier to understand. The AI returns rubric category scores and feedback, while the server calculates the final match score.
+
+## Features
+
+- Resume and job description comparison
+- Rubric based match score out of 100
+- Score breakdown across skills, experience, projects, and keyword coverage
+- Missing keyword detection
+- Skill gap analysis
+- Resume bullet improvement suggestions
+- Action plan for improving the application
+- Saved analysis history
+- Detail page for viewing a full saved analysis
+- Clerk authentication for user specific history
+- PostgreSQL persistence with Prisma
+- Deployed on Vercel
+
+## Scoring Rubric
+
+The final match score is calculated from four rubric categories:
+
+| Category | Max Points |
+| --- | ---: |
+| Skills match | 40 |
+| Experience relevance | 25 |
+| Project relevance | 20 |
+| Keyword coverage | 15 |
+| Total | 100 |
+
+The model returns the four category scores, and the backend sums them to produce the final match score.
+
+## Tech Stack
+
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- OpenAI Responses API
+- Zod
+- Prisma
+- PostgreSQL
+- Clerk authentication
+- Vercel deployment
+
+## Project Structure
+
+```txt
+app/
+  api/analyze/        Resume analysis API route
+  analyze/            Resume analysis page
+  history/            Saved analysis history
+  history/[id]/       Full saved analysis detail page
+components/           Shared UI components
+lib/                  OpenAI, Prisma, auth, and validation helpers
+prisma/               Prisma schema and migrations
+```
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. 复制环境变量文件：
-
-```bash
-copy .env.example .env
-```
-
-3. 打开 `.env`，填入你的 OpenAI API Key：
+Create a `.env` file in the project root:
 
 ```env
-OPENAI_API_KEY=你的_key
-OPENAI_MODEL=gpt-5.4-mini
-PORT=3000
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1-mini
+DATABASE_URL=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 ```
 
-4. 启动服务：
+Generate Prisma Client:
+
+```bash
+npm run prisma:generate
+```
+
+Run database migrations:
+
+```bash
+npx prisma migrate deploy
+```
+
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-5. 打开页面：
+Open the app at:
 
 ```txt
 http://localhost:3000
 ```
 
-## 主要文件
+If port 3000 is already in use, Next.js may start on another port such as `http://localhost:3001`.
 
-```txt
-server.js              # 用途：Express 后端，负责调用 OpenAI API
-index.html            # 用途：页面结构
-styles.css            # 用途：页面视觉样式
-src/apiClient.js      # 用途：前端 API 请求封装
-src/app.js            # 用途：页面交互主流程
-src/config.js         # 用途：岗位、题库和模板配置
-src/interviewEngine.js # 用途：本地 fallback 题目生成和评分
-src/render.js         # 用途：渲染反馈、报告和历史记录
-src/resumeParser.js   # 用途：解析简历文本
-src/utils.js          # 用途：通用工具函数
+## Deployment
+
+This app is deployed with Vercel.
+
+Recommended Vercel build command:
+
+```bash
+npm run prisma:generate && npm run build
 ```
 
-## 说明
+Required Vercel environment variables:
 
-如果你直接双击打开 `index.html`，页面仍然可以使用本地模拟模式；但真实 AI 生成题目和反馈需要通过 `npm run dev` 启动后端服务。
+```env
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1-mini
+DATABASE_URL=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+```
+
+Before production deployment, run:
+
+```bash
+npx prisma migrate deploy
+```
+
+Do not run database migrations inside every Vercel build.
+
+## Privacy Note
+
+This app stores resume text, job descriptions, and generated analysis results so users can revisit their history. Do not upload sensitive personal information unless you are comfortable storing it in the configured database.
+
+## Future Improvements
+
+- Add rate limiting for public usage
+- Add a privacy policy page
+- Improve resume rewrite output with before and after examples
+- Save rubric sub scores in history records
+- Add PDF resume upload
+- Add stronger ATS keyword matching
+- Add export or copy to clipboard actions
+
+## Status
+
+The current version is an MVP focused on resume job matching, stable scoring, saved history, and public deployment readiness.
