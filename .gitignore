@@ -11,3 +11,5 @@ ui-check.png
 .edge-test/
 next-dev.log
 next-dev.err
+*.log
+*.err
