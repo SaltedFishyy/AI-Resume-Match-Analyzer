@@ -44,3 +44,24 @@
  ○ Compiling /analyze ...
  ✓ Compiled /analyze in 1604ms (989 modules)
  GET /analyze 200 in 2291ms
+ ✓ Compiled in 769ms (991 modules)
+ ✓ Compiled in 235ms (350 modules)
+ ✓ Compiled in 212ms (350 modules)
+ ✓ Compiled in 187ms (350 modules)
+ ✓ Compiled in 371ms (350 modules)
+ ✓ Compiled in 227ms (350 modules)
+ ✓ Compiled /analyze in 115ms (653 modules)
+ GET /analyze 200 in 334ms
+ ✓ Compiled /api/analyze in 401ms (1171 modules)
+ POST /api/analyze 400 in 581ms
+ ✓ Compiled in 145ms (351 modules)
+ ✓ Compiled in 80ms (351 modules)
+ ✓ Compiled in 88ms (351 modules)
+ ✓ Compiled in 70ms (351 modules)
+ ✓ Compiled in 74ms (351 modules)
+ ✓ Compiled in 184ms (1200 modules)
+ ✓ Compiled /history in 324ms (1020 modules)
+ GET /history 200 in 2668ms
+ ✓ Compiled /history/[id] in 217ms (1008 modules)
+ GET /history/cmrbaze030005u7rw0fmaifza 200 in 1682ms
+ GET /history/not-a-real-analysis-id 404 in 472ms

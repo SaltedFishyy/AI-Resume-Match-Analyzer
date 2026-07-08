@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export type HistoryAnalysis = {
   id: string;
   matchScore: number;
@@ -54,6 +56,11 @@ export function AnalysisHistory({ analyses, error }: AnalysisHistoryProps) {
                 {keyword}
               </span>
             ))}
+          </div>
+          <div className="mt-5 border-t pt-4">
+            <Link href={`/history/${analysis.id}`} className="inline-flex rounded-lg border bg-white px-4 py-2 text-sm font-medium shadow-sm transition hover:bg-muted">
+              View details
+            </Link>
           </div>
         </article>
       ))}

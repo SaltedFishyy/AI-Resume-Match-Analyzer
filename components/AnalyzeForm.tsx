@@ -55,7 +55,7 @@ export function AnalyzeForm() {
     <>
       <form className="mt-10" onSubmit={handleSubmit}>
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-[0_16px_50px_-30px_rgba(15,23,42,0.35)] backdrop-blur sm:p-6">
             <label htmlFor="resumeText" className="text-lg font-semibold">Resume</label>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">
               Paste the resume text you plan to use for this application.
@@ -63,7 +63,7 @@ export function AnalyzeForm() {
             <ResumeInput value={resumeText} onChange={setResumeText} />
           </section>
 
-          <section className="rounded-2xl border bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-[0_16px_50px_-30px_rgba(15,23,42,0.35)] backdrop-blur sm:p-6">
             <label htmlFor="jobDescription" className="text-lg font-semibold">Job description</label>
             <p className="mt-1 text-sm leading-6 text-muted-foreground">
               Paste the complete role description for a job-specific comparison.
@@ -73,7 +73,7 @@ export function AnalyzeForm() {
         </div>
 
         {error && (
-          <p role="alert" className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+          <p role="alert" className="mt-5 rounded-2xl border border-red-200 bg-red-50/90 p-4 text-sm font-medium text-red-700 shadow-sm">
             {error}
           </p>
         )}
@@ -82,7 +82,7 @@ export function AnalyzeForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="inline-flex min-w-44 items-center justify-center rounded-xl bg-primary px-7 py-3.5 font-semibold text-primary-foreground shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-w-48 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-600/25 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {isLoading ? "Analyzing..." : "Analyze resume"}
           </button>

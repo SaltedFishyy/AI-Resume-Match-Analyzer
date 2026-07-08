@@ -12,7 +12,7 @@ export function JobDescriptionInput({ value, onChange }: JobDescriptionInputProp
       rows={16}
       required
       placeholder="Paste the job description here..."
-      className="mt-5 min-h-96 w-full resize-y rounded-xl border bg-background p-4 text-sm leading-6 outline-none transition placeholder:text-muted-foreground/70 focus:border-primary focus:bg-white focus:ring-4 focus:ring-blue-100"
+      className="mt-5 min-h-96 w-full resize-y rounded-2xl border border-slate-200 bg-slate-50/80 p-4 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-indigo-400 focus:bg-white focus:ring-4 focus:ring-indigo-100"
     />
   );
 }
