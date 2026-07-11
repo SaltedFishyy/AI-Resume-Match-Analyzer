@@ -3,33 +3,47 @@
 @tailwind utilities;
 
 :root {
-  --background: 210 40% 98%;
+  --background: 216 100% 99%;
   --foreground: 222.2 47.4% 11.2%;
   --primary: 221.2 83.2% 53.3%;
   --primary-foreground: 210 40% 98%;
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
   --border: 214.3 31.8% 91.4%;
-  --radius: 0.75rem;
+  --radius: 1rem;
 }
 
 * { @apply border-border; }
 
 html {
   min-height: 100%;
-  background-color: #f8fafc;
+  background-color: #f8fbff;
 }
 
 body {
   min-height: 100vh;
   color: hsl(var(--foreground));
-  background-color: #f8fafc;
+  background-color: #f8fbff;
   background-image:
-    radial-gradient(circle at 8% 4%, rgba(59, 130, 246, 0.12), transparent 30rem),
-    radial-gradient(circle at 92% 8%, rgba(124, 58, 237, 0.10), transparent 32rem),
+    radial-gradient(circle at 8% 4%, rgba(59, 130, 246, 0.11), transparent 30rem),
+    radial-gradient(circle at 92% 8%, rgba(124, 58, 237, 0.08), transparent 32rem),
     linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
   background-size: auto, auto, 32px 32px, 32px 32px;
   background-attachment: fixed;
   @apply antialiased;
+}
+
+::selection { background: rgba(59, 130, 246, 0.2); }
+
+.surface-card {
+  @apply border border-slate-200/80 bg-white/90 shadow-[0_18px_55px_-35px_rgba(15,23,42,0.35)] backdrop-blur;
+}
+
+.eyebrow {
+  @apply text-xs font-bold uppercase tracking-[0.16em] text-blue-600;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-100;
 }

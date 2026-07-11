@@ -113,10 +113,10 @@ If port 3000 is already in use, Next.js may start on another port such as `http:
 
 This app is deployed with Vercel.
 
-Recommended Vercel build command:
+Vercel build command (this generates Prisma Client automatically):
 
 ```bash
-npm run prisma:generate && npm run build
+npm run build
 ```
 
 Required Vercel environment variables:

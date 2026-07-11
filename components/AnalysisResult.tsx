@@ -16,7 +16,7 @@ type RubricScoreProps = {
 
 function ResultList({ title, description, items }: ResultListProps) {
   return (
-    <section className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-[0_16px_45px_-32px_rgba(15,23,42,0.4)] backdrop-blur">
+    <section className="surface-card rounded-2xl p-6">
       <div className="border-b pb-4">
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="mt-1 text-sm leading-5 text-muted-foreground">{description}</p>
@@ -25,8 +25,8 @@ function ResultList({ title, description, items }: ResultListProps) {
       {items.length > 0 ? (
         <ul className="mt-5 space-y-4 text-sm leading-6 text-foreground/80">
           {items.map((item, index) => (
-            <li key={`${title}-${index}`} className="flex gap-3 rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2.5">
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500" />
+            <li key={`${title}-${index}`} className="flex gap-3 rounded-xl border border-slate-100 bg-slate-50/70 px-3 py-2.5">
+              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
               <span>{item}</span>
             </li>
           ))}
@@ -42,16 +42,16 @@ function RubricScore({ label, description, score, maximum }: RubricScoreProps) {
   const percentage = Math.round((score / maximum) * 100);
 
   return (
-    <article className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-[0_12px_35px_-28px_rgba(15,23,42,0.45)] backdrop-blur">
+    <article className="surface-card rounded-2xl p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-semibold">{label}</h3>
-        <span className="shrink-0 rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-sm font-semibold text-indigo-700">
+        <span className="shrink-0 rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-sm font-semibold text-blue-700">
           {score} / {maximum}
         </span>
       </div>
       <p className="mt-2 min-h-10 text-xs leading-5 text-muted-foreground">{description}</p>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100" aria-hidden="true">
-        <div className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-blue-500" style={{ width: `${percentage}%` }} />
+        <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" style={{ width: `${percentage}%` }} />
       </div>
     </article>
   );
@@ -61,8 +61,8 @@ export function AnalysisResult({ result }: { result: AnalysisResultData }) {
   return (
     <section className="mt-16 space-y-10 border-t border-slate-200/80 pt-12" aria-live="polite">
       <header className="max-w-3xl">
-        <p className="text-sm font-medium uppercase tracking-wide text-primary">Resume insights</p>
-        <h2 className="mt-2 text-3xl font-bold tracking-tight">Your analysis</h2>
+        <p className="eyebrow">Resume insights</p>
+        <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Your analysis</h2>
         <p className="mt-2 text-muted-foreground">See where your resume aligns and what to improve before applying.</p>
       </header>
 

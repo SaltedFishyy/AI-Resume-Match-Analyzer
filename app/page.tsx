@@ -1,71 +1,72 @@
 import Link from "next/link";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { isClerkConfigured } from "@/lib/auth-config";
+import { ArrowRight, BarChart3, BriefcaseBusiness, Check, Clock3, FileText, History, KeyRound, Lightbulb, Search, ShieldCheck, Sparkles, Target } from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
 
 const steps = [
-  { title: "Paste your resume", description: "Add the resume text you plan to use for your application." },
-  { title: "Paste the job description", description: "Share the role requirements so the analysis stays job-specific." },
-  { title: "Get a rubric based match analysis", description: "Review your score, gaps, keywords, and practical next steps." },
+  { icon: FileText, color: "blue", title: "Paste your resume", description: "Add the resume text you plan to use for your application." },
+  { icon: BriefcaseBusiness, color: "orange", title: "Paste the job description", description: "Share the role requirements so the analysis stays job-specific." },
+  { icon: BarChart3, color: "emerald", title: "Get your match analysis", description: "Review your score, gaps, keywords, and practical next steps." },
 ];
 
 const features = [
-  { title: "Stable match score", description: "A consistent 100-point rubric covering skills, experience, projects, and keywords." },
-  { title: "Missing keyword detection", description: "See important job terms that are not clearly represented in your resume." },
-  { title: "Skill gap analysis", description: "Identify capabilities the role requests that need stronger evidence." },
-  { title: "Resume bullet suggestions", description: "Get focused suggestions for making your existing experience more relevant." },
-  { title: "Analysis history", description: "Return to previous resume and job matches whenever you need them." },
+  { icon: Search, color: "blue", title: "Higher match clarity", description: "See what matters most so you can focus your resume." },
+  { icon: BarChart3, color: "emerald", title: "Rubric-based analysis", description: "A consistent score across four key dimensions." },
+  { icon: Target, color: "rose", title: "Find skill and keyword gaps", description: "Identify what is missing or needs stronger evidence." },
+  { icon: History, color: "violet", title: "Track your progress", description: "Return to every saved analysis whenever you need it." },
+  { icon: Lightbulb, color: "amber", title: "Actionable suggestions", description: "Get practical ways to improve your existing content." },
+  { icon: ShieldCheck, color: "cyan", title: "Private and secure", description: "Your saved analyses stay associated with your account." },
 ];
+
+const tones: Record<string, string> = {
+  blue: "bg-blue-50 text-blue-600", orange: "bg-orange-50 text-orange-600", emerald: "bg-emerald-50 text-emerald-600",
+  rose: "bg-rose-50 text-rose-600", violet: "bg-violet-50 text-violet-600", amber: "bg-amber-50 text-amber-600", cyan: "bg-cyan-50 text-cyan-600",
+};
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
-      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="font-semibold tracking-tight">AI Resume Match Analyzer</Link>
-        {isClerkConfigured ? (
-          <>
-            <SignedOut><SignInButton mode="modal"><button className="rounded-lg border bg-white/85 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur transition hover:bg-white">Sign in</button></SignInButton></SignedOut>
-            <SignedIn><UserButton /></SignedIn>
-          </>
-        ) : (
-          <span className="rounded-lg bg-amber-100 px-3 py-2 text-sm text-amber-800">Local preview</span>
-        )}
-      </nav>
-
-      <section className="border-y border-slate-200/80 bg-white/55 backdrop-blur-sm">
-        <div className="mx-auto max-w-6xl px-6 py-20 text-center lg:py-28">
-          <div className="mx-auto max-w-4xl">
-            <p className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700">Resume intelligence for job seekers</p>
-            <h1 className="mt-6 text-5xl font-bold tracking-tight sm:text-6xl">AI Resume Match Analyzer</h1>
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Compare your resume against a job description and get a clear match score, missing keywords, skill gaps, and resume improvement suggestions.</p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href="/analyze" className="rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground shadow-sm transition hover:opacity-90">Analyze my resume</Link>
-              <Link href="/history" className="rounded-lg border bg-white/85 px-6 py-3 text-center font-medium shadow-sm transition hover:bg-white">View analysis history</Link>
+    <main className="min-h-screen overflow-hidden">
+      <SiteHeader />
+      <section className="relative border-b border-slate-200/70">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-24">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-blue-700 shadow-sm">
+              <Sparkles className="h-3.5 w-3.5" /> AI-powered career insights
+            </div>
+            <h1 className="mt-7 text-5xl font-black leading-[1.04] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-7xl">AI Resume<br />Match Analyzer</h1>
+            <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">Compare your resume against a job description and get a clear match score, missing keywords, skill gaps, and practical improvements.</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="/analyze" className="focus-ring inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:-translate-y-0.5 hover:shadow-xl">Analyze my resume <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/history" className="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200"><Clock3 className="h-4 w-4" /> View history</Link>
+            </div>
+            <div className="mt-10 grid max-w-xl grid-cols-1 gap-4 text-xs font-medium text-slate-600 sm:grid-cols-3">
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-500" /> Private & secure</span>
+              <span className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-violet-500" /> AI-powered</span>
+              <span className="flex items-center gap-2"><Target className="h-4 w-4 text-orange-500" /> Actionable</span>
             </div>
           </div>
+          <AnalysisPreview />
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="max-w-2xl"><p className="text-sm font-medium uppercase tracking-wide text-primary">How it works</p><h2 className="mt-2 text-3xl font-bold tracking-tight">A focused analysis in three steps</h2><p className="mt-3 text-muted-foreground">No complicated setup—just the two documents that matter for the application.</p></div>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {steps.map((step, index) => <article key={step.title} className="rounded-xl border border-slate-200/80 bg-white/85 p-6 shadow-sm backdrop-blur"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">{index + 1}</span><h3 className="mt-5 text-lg font-semibold">{step.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{step.description}</p></article>)}
+      <section className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 lg:py-24">
+        <p className="eyebrow">How it works</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">A focused analysis in three simple steps</h2>
+        <p className="mt-3 text-slate-500">Just the two documents that matter for your application.</p>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {steps.map((step, index) => <article key={step.title} className="surface-card rounded-2xl p-7 text-center transition hover:-translate-y-1"><span className={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl ${tones[step.color]}`}><step.icon className="h-6 w-6" /></span><span className="mx-auto mt-4 flex h-6 w-6 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white">{index + 1}</span><h3 className="mt-4 font-bold text-slate-950">{step.title}</h3><p className="mt-2 text-sm leading-6 text-slate-500">{step.description}</p></article>)}
         </div>
       </section>
 
-      <section className="border-y border-slate-200/80 bg-white/55 backdrop-blur-sm">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="max-w-2xl"><p className="text-sm font-medium uppercase tracking-wide text-primary">What you get</p><h2 className="mt-2 text-3xl font-bold tracking-tight">Practical insight for every application</h2><p className="mt-3 text-muted-foreground">Each result is designed to help you make clear, evidence-based resume improvements.</p></div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => <article key={feature.title} className="rounded-xl border border-slate-200/80 bg-white/75 p-6 shadow-sm backdrop-blur"><h3 className="font-semibold">{feature.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{feature.description}</p></article>)}
-          </div>
+      <section className="border-y border-slate-200/70 bg-white/55">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-24">
+          <div><p className="eyebrow">Why job seekers love it</p><h2 className="mt-3 max-w-xl text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Smarter insights. Better applications. More interviews.</h2><div className="mt-10 grid gap-7 sm:grid-cols-2">{features.map((feature) => <div key={feature.title} className="flex gap-4"><span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${tones[feature.color]}`}><feature.icon className="h-5 w-5" /></span><div><h3 className="text-sm font-bold text-slate-900">{feature.title}</h3><p className="mt-1 text-xs leading-5 text-slate-500">{feature.description}</p></div></div>)}</div></div>
+          <div className="surface-card self-center rounded-3xl p-5 sm:p-7"><div className="flex items-center gap-3 border-b border-slate-100 pb-5"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600"><BarChart3 className="h-5 w-5" /></span><p className="font-bold text-slate-900">Detailed analysis preview</p></div><div className="mt-5 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-slate-50 p-5"><p className="text-xs font-semibold text-slate-500">Score breakdown</p>{[["Skills",78],["Experience",81],["Keywords",92]].map(([label,value]) => <div key={label as string} className="mt-5"><div className="flex justify-between text-xs font-semibold"><span>{label}</span><span>{value}%</span></div><div className="mt-2 h-1.5 rounded-full bg-slate-200"><div className="h-full rounded-full bg-blue-500" style={{width:`${value}%`}} /></div></div>)}</div><div className="rounded-2xl bg-slate-50 p-5"><p className="text-xs font-semibold text-slate-500">Recommendations</p><ul className="mt-4 space-y-3 text-xs text-slate-600">{["Add missing technical skills","Quantify achievements","Highlight relevant projects"].map(item => <li key={item} className="flex gap-2"><Check className="h-4 w-4 text-emerald-500" />{item}</li>)}</ul><Link href="/analyze" className="mt-6 flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white">Start your analysis</Link></div></div></div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-        <h2 className="text-3xl font-bold tracking-tight">Make your next application more focused.</h2>
-        <p className="mx-auto mt-3 max-w-xl text-muted-foreground">Compare your resume with the role before you apply.</p>
-        <Link href="/analyze" className="mt-8 inline-flex rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground shadow-sm transition hover:opacity-90">Start an analysis</Link>
       </section>
     </main>
   );
+}
+
+function AnalysisPreview() {
+  return <div className="surface-card relative rounded-3xl p-4 sm:p-6"><div className="grid gap-4 sm:grid-cols-[1fr_1.1fr]"><div className="rounded-2xl bg-slate-50 p-6 text-center"><p className="text-xs font-semibold text-slate-500">Overall match score</p><div className="mx-auto mt-5 flex h-36 w-36 items-center justify-center rounded-full bg-[conic-gradient(#10b981_0_84%,#e2e8f0_84%)] p-3"><div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-white"><span className="text-4xl font-black text-slate-950">84</span><span className="text-xs text-slate-500">/100</span></div></div></div><div className="rounded-2xl border border-slate-100 bg-white p-6"><p className="text-xs font-semibold text-slate-500">Match strength</p><p className="mt-2 text-xl font-bold text-emerald-600">Great match 🎉</p><p className="mt-2 text-xs leading-5 text-slate-500">Your resume aligns with many of the key requirements for this role.</p><span className="mt-4 inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Strong candidate</span></div></div><div className="mt-4 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl border border-slate-100 p-5"><div className="flex justify-between text-xs font-bold"><span>Keyword match</span><span>92%</span></div><div className="mt-3 h-2 rounded-full bg-slate-100"><div className="h-full w-[92%] rounded-full bg-emerald-500" /></div></div><div className="rounded-2xl border border-slate-100 p-5"><p className="text-xs font-bold">Top strengths</p><ul className="mt-3 space-y-2 text-xs text-slate-500"><li className="flex gap-2"><Check className="h-4 w-4 text-emerald-500"/>Project management</li><li className="flex gap-2"><Check className="h-4 w-4 text-emerald-500"/>Data analysis</li></ul></div></div></div>;
 }

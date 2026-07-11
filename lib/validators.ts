@@ -5,8 +5,6 @@ export const analysisRequestSchema = z.object({
   jobDescription: z.string().trim().min(100).max(30_000),
 });
 
-export type AnalysisRequest = z.infer<typeof analysisRequestSchema>;
-
 export const modelAnalysisResultSchema = z.object({
   skillsMatchScore: z.number().int().min(0).max(40),
   experienceRelevanceScore: z.number().int().min(0).max(25),

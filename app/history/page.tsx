@@ -29,8 +29,7 @@ export default async function HistoryPage() {
 
   return (
     <AppShell>
-      <h1 className="text-3xl font-bold">Analysis history</h1>
-      <p className="mb-8 mt-2 text-muted-foreground">Review previous resume and job matches.</p>
+      <header className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow">Your progress</p><h1 className="mt-3 text-4xl font-black tracking-[-0.035em] text-slate-950 sm:text-5xl">Analysis history</h1><p className="mt-3 text-slate-500">Review previous resume matches and revisit your recommendations.</p></div></header>
       <AnalysisHistory analyses={analyses} error={error} />
     </AppShell>
   );
