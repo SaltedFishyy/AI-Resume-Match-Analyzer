@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, Clock3, FileText, History, Lightbulb, RotateCcw, ShieldCheck, Sparkles, Target } from "lucide-react";
 import { AnalysisResult } from "@/components/AnalysisResult";
 import { JobDescriptionInput } from "@/components/JobDescriptionInput";
+import { PdfResumeUpload } from "@/components/PdfResumeUpload";
 import { ResumeInput } from "@/components/ResumeInput";
 import type { AnalysisResultData } from "@/lib/validators";
 
@@ -19,8 +20,9 @@ export function AnalyzeForm() {
   const [result, setResult] = useState<AnalysisResultData | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [pdfResetSignal, setPdfResetSignal] = useState(0);
 
-  function clearAll() { setResumeText(""); setJobDescription(""); setError(""); setResult(null); }
+  function clearAll() { setResumeText(""); setJobDescription(""); setError(""); setResult(null); setPdfResetSignal((signal) => signal + 1); }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError(""); setResult(null); setIsLoading(true);
@@ -38,7 +40,7 @@ export function AnalyzeForm() {
     <>
       <form className="mt-10" onSubmit={handleSubmit}>
         <div className="grid gap-6 lg:grid-cols-2">
-          <InputCard icon={FileText} tone="blue" title="Resume" description="Paste the resume text you plan to use for this application." count={resumeText.length} maximum={50_000} sampleLabel="Try sample resume" onSample={() => setResumeText(SAMPLE_RESUME)}>
+          <InputCard icon={FileText} tone="blue" title="Resume" description="Paste the resume text you plan to use for this application." count={resumeText.length} maximum={50_000} sampleLabel="Try sample resume" onSample={() => setResumeText(SAMPLE_RESUME)} footerMiddle={<PdfResumeUpload onTextExtracted={setResumeText} resetSignal={pdfResetSignal} />}>
             <ResumeInput value={resumeText} onChange={setResumeText} />
           </InputCard>
           <InputCard icon={BriefcaseBusiness} tone="violet" title="Job description" description="Paste the complete role description for a job-specific comparison." count={jobDescription.length} maximum={30_000} sampleLabel="Try sample job description" onSample={() => setJobDescription(SAMPLE_JOB)}>
@@ -65,7 +67,7 @@ export function AnalyzeForm() {
   );
 }
 
-type InputCardProps = { icon: typeof FileText; tone: "blue" | "violet"; title: string; description: string; count: number; maximum: number; sampleLabel: string; onSample: () => void; children: React.ReactNode };
-function InputCard({ icon: Icon, tone, title, description, count, maximum, sampleLabel, onSample, children }: InputCardProps) {
-  return <section className="surface-card rounded-3xl p-5 sm:p-6"><div className="flex items-start justify-between gap-4"><div className="flex gap-4"><span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone === "blue" ? "bg-blue-50 text-blue-600" : "bg-violet-50 text-violet-600"}`}><Icon className="h-5 w-5" /></span><div><label htmlFor={tone === "blue" ? "resumeText" : "jobDescription"} className="text-lg font-bold text-slate-950">{title}</label><p className="mt-1 text-sm leading-6 text-slate-500">{description}</p></div></div><span className="hidden items-center gap-1 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 sm:flex"><ShieldCheck className="h-3.5 w-3.5" /> Private</span></div><div className="mt-6">{children}</div><div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/70 px-3 py-2.5"><span className="text-xs text-slate-500">{count.toLocaleString()} / {maximum.toLocaleString()} characters</span><button type="button" onClick={onSample} className="focus-ring inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold text-blue-600 transition hover:bg-blue-50"><FileText className="h-3.5 w-3.5" /> {sampleLabel}</button></div></section>;
+type InputCardProps = { icon: typeof FileText; tone: "blue" | "violet"; title: string; description: string; count: number; maximum: number; sampleLabel: string; onSample: () => void; footerMiddle?: React.ReactNode; children: React.ReactNode };
+function InputCard({ icon: Icon, tone, title, description, count, maximum, sampleLabel, onSample, footerMiddle, children }: InputCardProps) {
+  return <section className="surface-card rounded-3xl p-5 sm:p-6"><div className="flex items-start justify-between gap-4"><div className="flex gap-4"><span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone === "blue" ? "bg-blue-50 text-blue-600" : "bg-violet-50 text-violet-600"}`}><Icon className="h-5 w-5" /></span><div><label htmlFor={tone === "blue" ? "resumeText" : "jobDescription"} className="text-lg font-bold text-slate-950">{title}</label><p className="mt-1 text-sm leading-6 text-slate-500">{description}</p></div></div><span className="hidden items-center gap-1 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 sm:flex"><ShieldCheck className="h-3.5 w-3.5" /> Private</span></div><div className="mt-6">{children}</div><div className="mt-3 grid gap-3 rounded-xl border border-slate-100 bg-slate-50/70 px-3 py-2.5 sm:grid-cols-3 sm:items-center"><span className="text-xs text-slate-500 sm:text-left">{count.toLocaleString()} / {maximum.toLocaleString()} characters</span><div className="flex min-w-0 justify-center">{footerMiddle}</div><div className="flex justify-center sm:justify-end"><button type="button" onClick={onSample} className="focus-ring inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold text-blue-600 transition hover:bg-blue-50"><FileText className="h-3.5 w-3.5" /> {sampleLabel}</button></div></div></section>;
 }
