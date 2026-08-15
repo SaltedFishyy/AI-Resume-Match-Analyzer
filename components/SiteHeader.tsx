@@ -9,6 +9,7 @@ import { isClerkConfigured } from "@/lib/auth-config";
 const links = [
   { href: "/analyze", label: "Analyze" },
   { href: "/history", label: "History" },
+  { href: "/profile", label: "Profile" },
 ];
 
 export function SiteHeader() {

@@ -2,7 +2,14 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, type NextRequest } from "next/server";
 import { canUseLocalPreviewAuth, isClerkConfigured } from "@/lib/auth-config";
 
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/analyze(.*)", "/history(.*)", "/api/analyze(.*)"]);
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/analyze(.*)",
+  "/history(.*)",
+  "/profile(.*)",
+  "/api/analyze(.*)",
+  "/api/profile(.*)",
+]);
 
 const protectedMiddleware = clerkMiddleware(async (auth, request) => {
   if (isProtectedRoute(request)) await auth.protect();
