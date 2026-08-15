@@ -1,6 +1,7 @@
 import { zodTextFormat } from "openai/helpers/zod";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { consumeDailyAnalysisQuota, DailyAnalysisLimitReachedError } from "@/lib/analysis-quota";
 import { getCurrentAppUser } from "@/lib/current-user";
 import { getOpenAIClient } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
     const { resumeText, jobDescription } = analysisRequestSchema.parse(body);
     const user = await getCurrentAppUser();
     const openai = getOpenAIClient();
+    await consumeDailyAnalysisQuota(user.id);
 
     const response = await openai.responses.parse({
       model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
@@ -102,6 +104,10 @@ export async function POST(request: Request) {
 
     if (error instanceof Error && error.message === "You must be signed in.") {
       return NextResponse.json({ error: error.message }, { status: 401 });
+    }
+
+    if (error instanceof DailyAnalysisLimitReachedError) {
+      return NextResponse.json({ error: error.message }, { status: 429 });
     }
 
     console.error("Resume analysis failed:", error);
