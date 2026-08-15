@@ -7,9 +7,12 @@ import { getOpenAIClient } from "@/lib/openai";
 import { prisma } from "@/lib/prisma";
 import {
   analysisRequestSchema,
+  analysisResponseSchema,
   analysisResultSchema,
   modelAnalysisResultSchema,
 } from "@/lib/validators";
+
+const SAVE_WARNING = "Analysis completed, but it could not be saved to your history.";
 
 const SYSTEM_PROMPT = `You are an expert resume analyst helping a job seeker compare a resume with a job description.
 
@@ -78,13 +81,10 @@ export async function POST(request: Request) {
       });
     } catch (databaseError) {
       console.error("Saving resume analysis failed:", databaseError);
-      return NextResponse.json(
-        { error: "The analysis was completed, but it could not be saved. Please check the database connection and try again." },
-        { status: 503 },
-      );
+      return NextResponse.json(analysisResponseSchema.parse({ result, saved: false, warning: SAVE_WARNING }));
     }
 
-    return NextResponse.json(result);
+    return NextResponse.json(analysisResponseSchema.parse({ result, saved: true }));
   } catch (error) {
     if (error instanceof ZodError) {
       return NextResponse.json({ error: "Please provide a resume and job description of at least 100 characters each." }, { status: 400 });

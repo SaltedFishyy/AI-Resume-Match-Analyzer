@@ -7,9 +7,9 @@ import { AnalysisResult } from "@/components/AnalysisResult";
 import { JobDescriptionInput } from "@/components/JobDescriptionInput";
 import { PdfResumeUpload } from "@/components/PdfResumeUpload";
 import { ResumeInput } from "@/components/ResumeInput";
-import type { AnalysisResultData } from "@/lib/validators";
+import type { AnalysisResponseData, AnalysisResultData } from "@/lib/validators";
 
-type AnalyzeApiResponse = AnalysisResultData | { error: string };
+type AnalyzeApiResponse = AnalysisResponseData | { error: string };
 
 const SAMPLE_RESUME = `Jordan Lee\nProduct Analyst\n\nSUMMARY\nProduct analyst with four years of experience using SQL, Tableau, Excel, and customer research to improve digital products. Skilled in stakeholder communication, dashboard development, A/B testing, and translating business questions into measurable product insights.\n\nEXPERIENCE\nProduct Analyst, Northstar Software\n- Built Tableau dashboards used by product and operations teams to monitor adoption and retention.\n- Partnered with product managers and engineers to define metrics and analyze feature performance.\n- Used SQL to identify onboarding friction and recommend workflow improvements.\n- Presented findings and practical recommendations to cross-functional stakeholders.\n\nEDUCATION\nBachelor of Science in Information Systems`;
 const SAMPLE_JOB = `We are seeking a Product Analyst to help our product teams make data-informed decisions. The ideal candidate has experience with SQL, Tableau, experimentation, product metrics, and stakeholder communication. Responsibilities include building dashboards, analyzing customer behavior, measuring feature performance, communicating insights, and partnering with product managers and engineers. Experience with Python, A/B testing, and SaaS products is preferred.`;
@@ -19,19 +19,20 @@ export function AnalyzeForm() {
   const [jobDescription, setJobDescription] = useState("");
   const [result, setResult] = useState<AnalysisResultData | null>(null);
   const [error, setError] = useState("");
+  const [saveWarning, setSaveWarning] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pdfResetSignal, setPdfResetSignal] = useState(0);
 
-  function clearAll() { setResumeText(""); setJobDescription(""); setError(""); setResult(null); setPdfResetSignal((signal) => signal + 1); }
+  function clearAll() { setResumeText(""); setJobDescription(""); setError(""); setSaveWarning(""); setResult(null); setPdfResetSignal((signal) => signal + 1); }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setError(""); setResult(null); setIsLoading(true);
+    event.preventDefault(); setError(""); setSaveWarning(""); setResult(null); setIsLoading(true);
     try {
       const response = await fetch("/api/analyze", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ resumeText, jobDescription }) });
       const responseText = await response.text(); let data: AnalyzeApiResponse;
       try { data = JSON.parse(responseText) as AnalyzeApiResponse; } catch { throw new Error("Server returned a non JSON response. Please check the terminal for the real API error."); }
       if (!response.ok) throw new Error("error" in data ? data.error : "Analysis failed. Please try again.");
-      if ("error" in data) throw new Error(data.error); setResult(data);
+      if ("error" in data) throw new Error(data.error); setResult(data.result); setSaveWarning(data.warning ?? "");
     } catch (caughtError) { setError(caughtError instanceof Error ? caughtError.message : "Analysis failed. Please try again."); }
     finally { setIsLoading(false); }
   }
@@ -54,6 +55,7 @@ export function AnalyzeForm() {
         </div>
 
         {error && <p role="alert" className="mt-5 rounded-2xl border border-red-200 bg-red-50/90 p-4 text-sm font-medium text-red-700 shadow-sm">{error}</p>}
+        {saveWarning && <p role="status" className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/90 p-4 text-sm font-medium text-amber-800 shadow-sm">{saveWarning}</p>}
 
         <div className="surface-card mt-5 flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center">
           <div className="flex flex-1 items-center gap-3 px-2 text-xs text-slate-500"><ShieldCheck className="h-5 w-5 text-slate-400" /><span>Your analysis is saved securely to your history.</span></div>

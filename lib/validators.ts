@@ -21,4 +21,11 @@ export const analysisResultSchema = modelAnalysisResultSchema.extend({
   matchScore: z.number().int().min(0).max(100),
 });
 
+export const analysisResponseSchema = z.object({
+  result: analysisResultSchema,
+  saved: z.boolean(),
+  warning: z.string().optional(),
+});
+
 export type AnalysisResultData = z.infer<typeof analysisResultSchema>;
+export type AnalysisResponseData = z.infer<typeof analysisResponseSchema>;
