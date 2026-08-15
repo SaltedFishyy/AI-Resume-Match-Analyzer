@@ -12,13 +12,13 @@ export class DailyAnalysisLimitReachedError extends Error {
 }
 
 export function getUtcDayBucket(now = new Date()) {
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  return now.toISOString().slice(0, 10);
 }
 
 export async function consumeDailyAnalysisQuota(userId: string) {
   const usageRows = await prisma.$queryRaw<{ count: number }[]>`
     INSERT INTO "DailyAnalysisUsage" ("id", "userId", "day", "count", "createdAt", "updatedAt")
-    VALUES (${randomUUID()}, ${userId}, ${getUtcDayBucket()}, 1, NOW(), NOW())
+    VALUES (${randomUUID()}, ${userId}, CAST(${getUtcDayBucket()} AS DATE), 1, NOW(), NOW())
     ON CONFLICT ("userId", "day")
     DO UPDATE SET
       "count" = "DailyAnalysisUsage"."count" + 1,
