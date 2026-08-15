@@ -29,6 +29,7 @@ export async function POST(request: Request) {
   try {
     const body: unknown = await request.json();
     const { resumeText, jobDescription } = analysisRequestSchema.parse(body);
+    const user = await getCurrentAppUser();
     const openai = getOpenAIClient();
 
     const response = await openai.responses.parse({
@@ -60,8 +61,6 @@ export async function POST(request: Request) {
     const result = analysisResultSchema.parse({ ...modelResult, matchScore });
 
     try {
-      const user = await getCurrentAppUser();
-
       await prisma.resumeAnalysis.create({
         data: {
           userId: user.id,
@@ -95,6 +94,14 @@ export async function POST(request: Request) {
 
     if (error instanceof Error && error.message === "OpenAI is not configured.") {
       return NextResponse.json({ error: error.message }, { status: 503 });
+    }
+
+    if (error instanceof Error && error.message === "Authentication is not configured.") {
+      return NextResponse.json({ error: "Authentication is not configured." }, { status: 503 });
+    }
+
+    if (error instanceof Error && error.message === "You must be signed in.") {
+      return NextResponse.json({ error: error.message }, { status: 401 });
     }
 
     console.error("Resume analysis failed:", error);

@@ -1,12 +1,12 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { isClerkConfigured } from "@/lib/auth-config";
+import { canUseLocalPreviewAuth, isClerkConfigured } from "@/lib/auth-config";
 import { prisma } from "@/lib/prisma";
 
 const LOCAL_PREVIEW_CLERK_ID = "local-preview-user";
 const LOCAL_PREVIEW_EMAIL = "local-preview@career-copilot.local";
 
 export async function getCurrentAppUser() {
-  if (!isClerkConfigured) {
+  if (canUseLocalPreviewAuth) {
     return prisma.user.upsert({
       where: { clerkId: LOCAL_PREVIEW_CLERK_ID },
       update: {},
@@ -15,6 +15,10 @@ export async function getCurrentAppUser() {
         email: LOCAL_PREVIEW_EMAIL,
       },
     });
+  }
+
+  if (!isClerkConfigured) {
+    throw new Error("Authentication is not configured.");
   }
 
   const { userId } = await auth();
