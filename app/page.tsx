@@ -14,7 +14,7 @@ const features = [
   { icon: Target, color: "rose", title: "Find skill and keyword gaps", description: "Identify what is missing or needs stronger evidence." },
   { icon: History, color: "violet", title: "Track your progress", description: "Return to every saved analysis whenever you need it." },
   { icon: Lightbulb, color: "amber", title: "Actionable suggestions", description: "Get practical ways to improve your existing content." },
-  { icon: ShieldCheck, color: "cyan", title: "Private and secure", description: "Your saved analyses stay associated with your account." },
+  { icon: ShieldCheck, color: "cyan", title: "Saved to your account", description: "Your saved analyses stay associated with your account." },
 ];
 
 const tones: Record<string, string> = {
@@ -39,7 +39,7 @@ export default function HomePage() {
               <Link href="/history" className="focus-ring inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white/90 px-6 py-3.5 font-semibold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200"><Clock3 className="h-4 w-4" /> View history</Link>
             </div>
             <div className="mt-10 grid max-w-xl grid-cols-1 gap-4 text-xs font-medium text-slate-600 sm:grid-cols-3">
-              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-500" /> Private & secure</span>
+              <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-emerald-500" /> Account-based history</span>
               <span className="flex items-center gap-2"><Sparkles className="h-4 w-4 text-violet-500" /> AI-powered</span>
               <span className="flex items-center gap-2"><Target className="h-4 w-4 text-orange-500" /> Actionable</span>
             </div>

@@ -4,7 +4,8 @@ import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { FileUp, Loader2 } from "lucide-react";
 
 const MAX_PDF_SIZE_BYTES = 5 * 1024 * 1024;
-const MIN_EXTRACTED_TEXT_LENGTH = 50;
+const MIN_EXTRACTED_TEXT_LENGTH = 100;
+const NOT_ENOUGH_TEXT_ERROR = "Not enough resume text was found.";
 
 type PdfResumeUploadProps = {
   onTextExtracted: (text: string) => void;
@@ -170,7 +171,7 @@ export function PdfResumeUpload({ onTextExtracted, resetSignal }: PdfResumeUploa
       const extractedText = pageTexts.join("\n\n").trim();
 
       if (extractedText.length < MIN_EXTRACTED_TEXT_LENGTH) {
-        throw new Error("No readable text was found.");
+        throw new Error(NOT_ENOUGH_TEXT_ERROR);
       }
 
       if (isCurrentParse(parseId)) {
@@ -180,7 +181,9 @@ export function PdfResumeUpload({ onTextExtracted, resetSignal }: PdfResumeUploa
     } catch (error) {
       if (isCurrentParse(parseId)) {
         const message =
-          error instanceof Error && error.message === "No readable text was found."
+          error instanceof Error && error.message === NOT_ENOUGH_TEXT_ERROR
+            ? "We couldn't extract enough resume text from this PDF. Please try another file or paste your resume manually."
+            : error instanceof Error && error.message === "No readable text was found."
             ? "No readable text was found. This may be a scanned PDF. Please paste the resume text manually."
             : getReadableError(error);
 
