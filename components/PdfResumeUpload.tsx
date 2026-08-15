@@ -2,81 +2,18 @@
 
 import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { FileUp, Loader2 } from "lucide-react";
-
-const MAX_PDF_SIZE_BYTES = 5 * 1024 * 1024;
-const MIN_EXTRACTED_TEXT_LENGTH = 100;
-const NOT_ENOUGH_TEXT_ERROR = "Not enough resume text was found.";
+import {
+  extractPdfText,
+  getReadablePdfError,
+  type LoadingTaskLike,
+  type PdfDocumentLike,
+  validatePdfFile,
+} from "@/lib/pdf-text-extraction";
 
 type PdfResumeUploadProps = {
   onTextExtracted: (text: string) => void;
   resetSignal: number;
 };
-
-type PdfDocumentLike = {
-  numPages: number;
-  getPage: (pageNumber: number) => Promise<{
-    getTextContent: () => Promise<{ items: unknown[] }>;
-  }>;
-  cleanup?: () => Promise<unknown>;
-};
-
-type LoadingTaskLike = {
-  promise: Promise<PdfDocumentLike>;
-  destroy: () => Promise<void>;
-};
-
-type TextContentItem = {
-  str?: string;
-  hasEOL?: boolean;
-};
-
-function isTextContentItem(item: unknown): item is TextContentItem {
-  return typeof item === "object" && item !== null && "str" in item;
-}
-
-function validatePdfFile(file: File) {
-  const hasPdfExtension = file.name.toLowerCase().endsWith(".pdf");
-  const mimeType = file.type.trim().toLowerCase();
-
-  if (!hasPdfExtension || (mimeType && mimeType !== "application/pdf")) {
-    return "Please upload a PDF file.";
-  }
-
-  if (file.size > MAX_PDF_SIZE_BYTES) {
-    return "PDF file must be 5MB or smaller.";
-  }
-
-  return "";
-}
-
-function getReadableError(error: unknown) {
-  const message = error instanceof Error ? error.message.toLowerCase() : "";
-  const name = error instanceof Error ? error.name.toLowerCase() : "";
-
-  if (name.includes("password") || message.includes("password") || message.includes("encrypted")) {
-    return "This PDF appears to be encrypted or password protected. Please paste the resume text manually.";
-  }
-
-  return "We could not extract text from this PDF. Please paste the resume text manually.";
-}
-
-function extractTextItems(items: unknown[]) {
-  const parts: string[] = [];
-
-  for (const item of items) {
-    if (!isTextContentItem(item) || typeof item.str !== "string") continue;
-
-    const text = item.str.trim();
-    if (text) parts.push(text);
-    if (item.hasEOL) parts.push("\n");
-  }
-
-  return parts
-    .join(" ")
-    .replace(/[ \t]*\n[ \t]*/g, "\n")
-    .replace(/[ \t]{2,}/g, " ")
-    .trim();
-}
 
 export function PdfResumeUpload({ onTextExtracted, resetSignal }: PdfResumeUploadProps) {
   const [selectedFileName, setSelectedFileName] = useState("");
@@ -138,41 +75,17 @@ export function PdfResumeUpload({ onTextExtracted, resetSignal }: PdfResumeUploa
     setPdfError("");
     setIsParsingPdf(true);
 
-    let loadingTask: LoadingTaskLike | null = null;
-    let pdfDocument: PdfDocumentLike | null = null;
+    let currentLoadingTask: LoadingTaskLike | null = null;
+    let currentPdfDocument: PdfDocumentLike | null = null;
 
     try {
-      const pdfjs = await import("pdfjs-dist");
-      pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.mjs", import.meta.url).toString();
-
-      if (!isCurrentParse(parseId)) return;
-
-      const fileBuffer = await file.arrayBuffer();
-
-      if (!isCurrentParse(parseId)) return;
-
-      loadingTask = pdfjs.getDocument({ data: fileBuffer }) as unknown as LoadingTaskLike;
-      loadingTaskRef.current = loadingTask;
-
-      pdfDocument = await loadingTask.promise;
-      pdfDocumentRef.current = pdfDocument;
-
-      const pageTexts: string[] = [];
-      for (let pageNumber = 1; pageNumber <= pdfDocument.numPages; pageNumber += 1) {
-        if (!isCurrentParse(parseId)) return;
-
-        const page = await pdfDocument.getPage(pageNumber);
-        const textContent = await page.getTextContent();
-        const pageText = extractTextItems(textContent.items);
-
-        if (pageText) pageTexts.push(pageText);
-      }
-
-      const extractedText = pageTexts.join("\n\n").trim();
-
-      if (extractedText.length < MIN_EXTRACTED_TEXT_LENGTH) {
-        throw new Error(NOT_ENOUGH_TEXT_ERROR);
-      }
+      const extractedText = await extractPdfText(file, () => isCurrentParse(parseId), ({ loadingTask, pdfDocument }) => {
+        currentLoadingTask = loadingTask;
+        currentPdfDocument = pdfDocument;
+        loadingTaskRef.current = loadingTask;
+        pdfDocumentRef.current = pdfDocument;
+      });
+      if (!extractedText) return;
 
       if (isCurrentParse(parseId)) {
         onTextExtracted(extractedText);
@@ -180,17 +93,10 @@ export function PdfResumeUpload({ onTextExtracted, resetSignal }: PdfResumeUploa
       }
     } catch (error) {
       if (isCurrentParse(parseId)) {
-        const message =
-          error instanceof Error && error.message === NOT_ENOUGH_TEXT_ERROR
-            ? "We couldn't extract enough resume text from this PDF. Please try another file or paste your resume manually."
-            : error instanceof Error && error.message === "No readable text was found."
-            ? "No readable text was found. This may be a scanned PDF. Please paste the resume text manually."
-            : getReadableError(error);
-
-        setPdfError(message);
+        setPdfError(getReadablePdfError(error));
       }
     } finally {
-      releasePdfResources(pdfDocument, loadingTask);
+      releasePdfResources(currentPdfDocument, currentLoadingTask);
 
       if (isCurrentParse(parseId)) {
         setIsParsingPdf(false);

@@ -7,8 +7,10 @@ const isProtectedRoute = createRouteMatcher([
   "/analyze(.*)",
   "/history(.*)",
   "/profile(.*)",
+  "/resume(.*)",
   "/api/analyze(.*)",
   "/api/profile(.*)",
+  "/api/master-resume(.*)",
 ]);
 
 const protectedMiddleware = clerkMiddleware(async (auth, request) => {

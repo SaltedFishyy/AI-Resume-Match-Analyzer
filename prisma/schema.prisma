@@ -14,6 +14,7 @@ model User {
   analyses            ResumeAnalysis[]
   dailyAnalysisUsages DailyAnalysisUsage[]
   profile             UserProfile?
+  masterResume        MasterResume?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
 }
@@ -69,4 +70,105 @@ model UserProfile {
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
   user                        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MasterResume {
+  id          String             @id @default(cuid())
+  userId      String             @unique
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  education   ResumeEducation[]
+  experiences ResumeExperience[]
+  projects    ResumeProject[]
+  skills      ResumeSkill[]
+  bullets     ResumeBullet[]
+}
+
+model ResumeEducation {
+  id             String       @id @default(cuid())
+  masterResumeId String
+  school         String
+  degree         String?
+  fieldOfStudy   String?
+  location       String?
+  startDate      String?
+  endDate        String?
+  notes          String?
+  position       Int
+  masterResume   MasterResume @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+
+  @@index([masterResumeId, position])
+}
+
+model ResumeExperience {
+  id             String         @id @default(cuid())
+  masterResumeId String
+  company        String
+  title          String
+  location       String?
+  startDate      String?
+  endDate        String?
+  isCurrent      Boolean        @default(false)
+  technologies   String[]       @default([])
+  position       Int
+  masterResume   MasterResume   @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+  bullets        ResumeBullet[]
+
+  @@index([masterResumeId, position])
+}
+
+model ResumeProject {
+  id             String         @id @default(cuid())
+  masterResumeId String
+  name           String
+  url            String?
+  repositoryUrl  String?
+  technologies   String[]       @default([])
+  startDate      String?
+  endDate        String?
+  position       Int
+  masterResume   MasterResume   @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+  bullets        ResumeBullet[]
+
+  @@index([masterResumeId, position])
+}
+
+model ResumeSkill {
+  id             String       @id @default(cuid())
+  masterResumeId String
+  name           String
+  category       String?
+  position       Int
+  masterResume   MasterResume @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+
+  @@index([masterResumeId, position])
+}
+
+model ResumeBullet {
+  id             String           @id @default(cuid())
+  masterResumeId String
+  experienceId   String?
+  projectId      String?
+  text           String           @db.Text
+  tags           String[]         @default([])
+  provenance     BulletProvenance
+  sourceNote     String?
+  position       Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  masterResume   MasterResume     @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+  experience     ResumeExperience? @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  project        ResumeProject?    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([masterResumeId, position])
+  @@index([experienceId, position])
+  @@index([projectId, position])
+}
+
+enum BulletProvenance {
+  USER_ENTERED
+  IMPORTED_FROM_RESUME_TEXT
+  IMPORTED_FROM_PDF
+  USER_CONFIRMED_AI_SUGGESTION
 }
