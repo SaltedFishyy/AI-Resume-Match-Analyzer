@@ -33,7 +33,24 @@ export function SiteHeader() {
             );
           })}
           <div className="ml-1 flex items-center sm:ml-3">
-            {isClerkConfigured ? <><SignedOut><SignInButton mode="modal"><button className="focus-ring rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Sign in</button></SignInButton></SignedOut><SignedIn><UserButton /></SignedIn></> : <span className="rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">Preview</span>}
+            {isClerkConfigured ? (
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <button className="focus-ring rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                      Sign in
+                    </button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </>
+            ) : (
+              <span className="rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
+                Preview
+              </span>
+            )}
           </div>
         </nav>
       </div>
